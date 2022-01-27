@@ -6,6 +6,7 @@
     <title>{{ env('APP_NAME')}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- all css here -->
@@ -29,6 +30,9 @@
     <link rel="stylesheet" href="{{ asset('frontend_asset') }}/css/responsive.css">
     <!-- modernizr css -->
     <script src="{{ asset('frontend_asset') }}/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- select2 css cdn-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -70,13 +74,13 @@
                                 <a href="javascript:void(0);"><i class="fa fa-user"></i> My Account <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
                                     <li><a href="{{ url('login') }}">Login</a></li>
-                                    <li><a href="{{ url('regi') }}">Register</a></li>
+                                    <li><a href="{{ url('#') }}">Register</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="wishlist.html">wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('login') }}"> Login/Register </a></li>
+                            <li><a href="{{ url('customer/register') }}"> Login/Register </a></li>
                         </ul>
                     </div>
                 </div>
@@ -411,6 +415,8 @@
     <script src="{{ asset('frontend_asset') }}/js/jquery-ui.min.js"></script>
     <!-- main js -->
     <script src="{{ asset('frontend_asset') }}/js/scripts.js"></script>
+    <!-- select2 js script -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @yield('footer_scripts')
 </body>
 

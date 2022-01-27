@@ -19,6 +19,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkrole');
     }
 
     /**
@@ -60,6 +61,6 @@ class HomeController extends Controller
     public function contactuploaddownload($contact_id)
     {
         //
-        return Storage::download(Contact::findOrFail($contact_id)->contact_attachment);      
+        return Storage::download(Contact::findOrFail($contact_id)->contact_attachment);
     }
 }

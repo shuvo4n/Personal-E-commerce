@@ -42,6 +42,10 @@
       </div><!-- form-group -->
       <button type="submit" class="btn btn-info btn-block">{{ __('Login') }}</button>
     </form>
+    </br>
+        <a href="{{ url('login/github') }}"><button type="button" class="btn btn-dark btn-block"> <i class="fa fa-github"></i> login with github</button></a>
+    </br>
+        <button type="button" class="btn btn-danger btn-block"> <i class="fa fa-google"></i> login with google</button>
       <div class="mg-t-60 tx-center">Not yet a member? <a href="page-signup.html" class="tx-info">Sign Up</a></div>
     </div><!-- login-wrapper -->
   </div><!-- d-flex -->

@@ -61,43 +61,53 @@
 
       <label class="sidebar-label">Navigation</label>
       <div class="sl-sideleft-menu">
-        <a href=" {{ url('home') }}" class="sl-menu-link @yield('home')">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-            <span class="menu-item-label">Home</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href=" {{ url('add/category') }}" class="sl-menu-link @yield('category')">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-            <span class="menu-item-label">Category</span>
-          </div><!-- menu-item -->
-        <a href=" {{ route('product.index') }}" class="sl-menu-link @yield('product')">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-            <span class="menu-item-label">Products</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href=" {{ route('coupon.index') }}" class="sl-menu-link @yield('coupon')">
+          @if (Auth::user()->role == 1)
+          <a href=" {{ url('home') }}" class="sl-menu-link @yield('home')">
             <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">Coupons</span>
+              <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+              <span class="menu-item-label">Home</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
-            <span class="menu-item-label">Reserved</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="chart-morris.html" class="nav-link">Morris Charts</a></li>
-          <li class="nav-item"><a href="chart-flot.html" class="nav-link">Flot Charts</a></li>
-          <li class="nav-item"><a href="chart-chartjs.html" class="nav-link">Chart JS</a></li>
-          <li class="nav-item"><a href="chart-rickshaw.html" class="nav-link">Rickshaw</a></li>
-          <li class="nav-item"><a href="chart-sparkline.html" class="nav-link">Sparkline</a></li>
-        </ul>
+          <a href=" {{ url('add/category') }}" class="sl-menu-link @yield('category')">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+              <span class="menu-item-label">Category</span>
+            </div><!-- menu-item -->
+          <a href=" {{ route('product.index') }}" class="sl-menu-link @yield('product')">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+              <span class="menu-item-label">Products</span>
+            </div><!-- menu-item -->
+          </a><!-- sl-menu-link -->
+          <a href=" {{ route('coupon.index') }}" class="sl-menu-link @yield('coupon')">
+              <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                <span class="menu-item-label">Coupons</span>
+              </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+          <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
+              <span class="menu-item-label">Reserved</span>
+              <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+          </a><!-- sl-menu-link -->
+          <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="chart-morris.html" class="nav-link">Morris Charts</a></li>
+            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Flot Charts</a></li>
+            <li class="nav-item"><a href="chart-chartjs.html" class="nav-link">Chart JS</a></li>
+            <li class="nav-item"><a href="chart-rickshaw.html" class="nav-link">Rickshaw</a></li>
+            <li class="nav-item"><a href="chart-sparkline.html" class="nav-link">Sparkline</a></li>
+          </ul>
+          @else
+          <a href=" {{ url('customer/home') }}" class="sl-menu-link @yield('home')">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+              <span class="menu-item-label">Customer Home</span>
+            </div><!-- menu-item -->
+          </a><!-- sl-menu-link -->
+          @endif
+
         {{-- <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>

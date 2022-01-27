@@ -35,7 +35,7 @@
                         <li>{{ session('update_status') }}</li>
                       </div>
                     @endif
-                    @if ($error_message)
+                    @if ($error_message != "")
                       <div class="alert alert-success">
                         <li>{{ $error_message }}</li>
                       </div>
@@ -108,6 +108,9 @@
                                       <input type="text" placeholder="Cupon Code" id="apply_coupon_input" name="coupon" value="{{ $coupon_value }}">
                                       <button type="button" id="apply_coupon_btn">Apply Cupon</button>
                                   </div>
+                                  @foreach ($valid_coupons as $valid_coupon)
+                                    <button value="{{ $valid_coupon->coupon_name }}" class="badge available_coupon_btn" type="button">{{ $valid_coupon->coupon_name }} - Minimum Shopping {{ $valid_coupon->minimum_purchase_amount }}</button>
+                                  @endforeach
 
                               </div>
                           </div>
@@ -116,10 +119,18 @@
                                   <h3>Cart Totals</h3>
                                   <ul>
                                       <li><span class="pull-left">Subtotal </span>${{ $cart_sub_total }}</li>
-                                      <li><span class="pull-left"> Total </span> $380.00</li>
+                                      @php
+                                          session(['cart_sub_total' => $cart_sub_total]);
+                                      @endphp
+                                      <li><span class="pull-left">{{ ($coupon_value) ? $coupon_value: '-' }} ({{ $discount_amount }}%) </span>${{ ($cart_sub_total * $discount_amount)/100  }}</li>
+                                      @php
+                                          session(['coupon_name' => ($coupon_value) ? $coupon_value: '-']);
+                                          session(['discount_amount' => ($cart_sub_total * $discount_amount)/100]);
+                                          @endphp
+                                      <li><span class="pull-left"> Total: </span> ${{$cart_sub_total - ($cart_sub_total * $discount_amount)/100 }}</li>
                                   </ul>
                                   @if ($flag == 0)
-                                    <a href="checkout.html">Proceed to Checkout</a>
+                                    <a href="{{ url('checkout') }}">Proceed to Checkout</a>
                                   @endif
                               </div>
                           </div>
@@ -137,6 +148,9 @@
             var apply_coupon_input = $('#apply_coupon_input').val();
             var link_to_go = "{{ url('cart') }}/"+apply_coupon_input;
             window.location.href = link_to_go;
+        });
+        $('.available_coupon_btn').click(function(){
+            $('#apply_coupon_input').val($(this).val());
         });
 
     });

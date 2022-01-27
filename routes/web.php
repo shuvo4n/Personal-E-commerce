@@ -21,6 +21,8 @@ Route::get('contact', 'FrontendController@contact');
 Route::post('contact/insert', 'FrontendController@contactinsert');
 Route::get('about', 'FrontendController@about');
 Route::get('shop', 'FrontendController@shop');
+Route::get('customer/register', 'FrontendController@customerregister');
+Route::post('customer/register/post', 'FrontendController@customerregisterpost');
 //Auth Controllers
 Auth::routes(['verify' => true]);
 //Home Controllers
@@ -56,3 +58,12 @@ Route::get('cart/remove/{cart_id}','CartController@remove')->name('cart.remove')
 Route::get('fox/forhad','ForhadController@forhad');
 // Coupon Controller
 Route::resource('coupon', 'CouponController');
+// Customer Controller
+Route::get('customer/home', 'CustomerController@home');
+//github controller
+Route::get('login/github', 'GithubController@redirectToProvider');
+Route::get('login/github/callback', 'GithubController@handleProviderCallback');
+//checkout controller
+Route::get('checkout','CheckoutController@index')->name('checkout.index');
+Route::post('checkout/post','CheckoutController@checkoutpost')->name('checkout.post');
+Route::post('/get/city/list/ajax','CheckoutController@getcitylistajax')->name('citylist.post');

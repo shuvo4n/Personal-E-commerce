@@ -29,13 +29,14 @@ class CartController extends Controller
                 Carbon::now()->format('Y-m-d');
                 if (Carbon::now()->format('Y-m-d') > Coupon::where('coupon_name', $coupon_name)->first()->validity_till) {
                     $error_message = "Coupon Validity Expired";
+                    $coupon_value = "";
                 } else {
                     $sub_total = 0;
                     foreach (cart_items() as $cart_item) {
                         $cart_item->product_quantity;
                         $cart_item->product->product_price;
                         $sub_total += ($cart_item->product_quantity * $cart_item->product->product_price);
-                    }
+                        }
                     if (Coupon::where('coupon_name', $coupon_name)->first()->minimum_purchase_amount > $sub_total) {
                         $error_message = "You have to purchase minimum: ". Coupon::where('coupon_name', $coupon_name)->first()->minimum_purchase_amount;
                     } else {
@@ -48,7 +49,8 @@ class CartController extends Controller
             }
             # code...
         }
-        return view('frontend.cart', compact('error_message', 'coupon_value', 'discount_amount' ));
+        $valid_coupons = Coupon::whereDate('validity_till', '>=', Carbon::now()->format('Y-m-d'))->get();
+        return view('frontend.cart', compact('error_message', 'coupon_value', 'discount_amount', 'valid_coupons' ));
 
     }
 
@@ -58,7 +60,7 @@ class CartController extends Controller
     }
     else{
           $generated_cart_id = Str::upper(str::random(3)).rand( 1, 1000);
-          Cookie::queue('g_cart_id', $generated_cart_id, 1440);
+          Cookie::queue('g_cart_id', $generated_cart_id, 14400);
       }
         If(Cart::where('generated_cart_id', $generated_cart_id)->where('product_id', $request->product_id)->exists()){
             Cart::where('generated_cart_id', $generated_cart_id)->where('product_id', $request->product_id)->increment('product_quantity', $request->product_quantity);

@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Contact;
+use App\User;
 use Carbon\Carbon;
+use Hash;
+use Auth;
 
 class FrontendController extends Controller
 {
     //
+
     function index(){
       return view('frontend.index', [
           'active_categories' => Category::all(),
@@ -59,6 +63,25 @@ class FrontendController extends Controller
         'categories' => Category::all(),
         'products' => Product::all()
       ]);
+    }
+    function customerregister(){
+      return view('frontend.customerregister',[
+        'categories' => Category::all(),
+        'products' => Product::all()
+      ]);
+    }
+    function customerregisterpost(Request $request){
+      User::insert([
+          'name' => $request->name,
+          'email' => $request->email,
+          'role' => 2,
+          'password' => Hash::make($request->password),
+          'created_at' => Carbon::now(),
+      ]);
+      if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            return redirect('customer/home');
+      }
+      return back();
     }
 
 }
